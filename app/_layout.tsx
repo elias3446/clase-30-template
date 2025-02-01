@@ -1,21 +1,19 @@
-import { View, Text } from 'react-native'
 import React from 'react'
-import { Slot } from 'expo-router'
+import { Stack, Tabs } from 'expo-router'
 // Import your global CSS file
 import "../global.css";
+import { View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 const RootLayout = () => {
   return (
-    <View style={{ flex: 1, backgroundColor: "gray" }}>
-      <Text style={{ color: "white" }}>
-        Header
-      </Text>
-      <Slot />
-      <Text style={{ color: "white" }}>
-        Footer
-      </Text>
+    <View className='flex-1'>
+      <StatusBar style='dark'/>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
     </View>
-  )
+  );
 }
 
 export default RootLayout
