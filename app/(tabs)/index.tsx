@@ -1,14 +1,14 @@
 import { View, TextInput, Text, Button, FlatList } from 'react-native';
 import { useChat } from '@ai-sdk/react';
 import { fetch as expoFetch } from 'expo/fetch';
-//import { generateAPIUrl } from '@/utils/utils';
+import { generateAPIUrl } from '@/utils/utils';
 import BubbleMessage from '@/components/BubbleMessage';
 
 export default function TabChat() {
 
   const { messages, error, handleInputChange, input, handleSubmit } = useChat({
     fetch: expoFetch as unknown as typeof globalThis.fetch,
-   // api: generateAPIUrl('/api/chat'),
+    api: generateAPIUrl('/api/chat'),
     onError: error => console.error(error, 'ERROR'),
   });
 
@@ -59,4 +59,5 @@ export default function TabChat() {
 
   );
 }
+
 
