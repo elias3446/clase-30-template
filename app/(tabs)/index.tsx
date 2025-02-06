@@ -3,10 +3,17 @@ import { useChat } from '@ai-sdk/react';
 import { fetch as expoFetch } from 'expo/fetch';
 import { generateAPIUrl } from '@/utils/utils';
 import BubbleMessage from '@/components/BubbleMessage';
+import { ChangeEvent, useState } from 'react';
 
 export default function TabChat() {
 
-  const { messages, error, handleInputChange, input, handleSubmit } = useChat({
+  const exampleMessages = [
+    { id: 1, content: 'Hola', role: 'user' },
+    { id: 2, content: 'Hola', role: 'assistant' },
+    { id: 3, content: 'Hola', role: 'user' },
+  ];
+
+  const { messages, error, handleInputChange: handleInputChange, input, handleSubmit } = useChat({
     fetch: expoFetch as unknown as typeof globalThis.fetch,
     api: generateAPIUrl('/api/chat'),
     onError: error => console.error(error, 'ERROR'),
@@ -14,12 +21,13 @@ export default function TabChat() {
 
   if (error) return <Text>{error.message}</Text>;
 
+  //const [localMessages, setLocalMessages] = useState(exampleMessages);
 
   return (
     <View className='flex flex-col h-full p-4'>
 
       <FlatList
-        data={[{ id: 1, content: 'Hola', role: 'user' }, { id: 2, content: 'Hola', role: 'assistant' }]}
+        data={messages}
         renderItem={({ item }) => (
           console.log(item),
           <BubbleMessage message={item.content} type={item.role} />
@@ -28,7 +36,7 @@ export default function TabChat() {
       />
 
       <View className='flex flex-row w-full'>
-        <TextInput
+      <TextInput
           className='flex-1 border'
           placeholder="Escribe un mensaje..."
           value={input}
